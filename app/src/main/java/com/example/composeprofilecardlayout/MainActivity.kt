@@ -66,14 +66,14 @@ class MainActivity : ComponentActivity() {
         context = this
         setContent {
             MyTheme {
-                MainScreen(context as MainActivity)
+                MainScreen()
             }
         }
     }
 }
 
 @Composable
-fun MainScreen(context: Context, userProfilesList: ArrayList<UserProfile> = listOfUsers) {
+fun MainScreen(userProfilesList: ArrayList<UserProfile> = listOfUsers) {
     Scaffold(topBar = { AppBar() }) { paddingValues ->
         Column(
             modifier = Modifier
@@ -85,7 +85,7 @@ fun MainScreen(context: Context, userProfilesList: ArrayList<UserProfile> = list
             ) {
                 LazyColumn {
                     items(userProfilesList) { userProfile ->
-                        ProfileCard(context, userProfile)
+                        ProfileCard(userProfile)
                     }
                 }
             }
@@ -117,7 +117,7 @@ fun AppBar() {
 }
 
 @Composable
-fun ProfileCard(context: Context, userProfile: UserProfile) {
+fun ProfileCard(userProfile: UserProfile) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -132,7 +132,7 @@ fun ProfileCard(context: Context, userProfile: UserProfile) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ) {
-            ProfilePicture(context, userProfile.profilePic, userProfile.userStatus)
+            ProfilePicture(userProfile.profilePic, userProfile.userStatus)
             ProfileDetails(userProfile.userName, userProfile.userStatus)
         }
     }
@@ -141,7 +141,7 @@ fun ProfileCard(context: Context, userProfile: UserProfile) {
 
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
-fun ProfilePicture(context: Context, profilePic: String, status: Boolean) {
+fun ProfilePicture(profilePic: String, status: Boolean) {
     Card(
         shape = CircleShape,
         border = BorderStroke(
@@ -197,6 +197,6 @@ fun ProfileDetails(name: String, status: Boolean) {
 @Composable
 fun GreetingPreview() {
     MyTheme {
-//        MainScreen(context = MainActivity)
+        MainScreen()
     }
 }
